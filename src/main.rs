@@ -1,3 +1,4 @@
+mod arguments;
 mod parsing;
 
 use clap::Parser;
@@ -6,19 +7,8 @@ use midoku_bindings::Bindings;
 use miniserde::json::{self, Object};
 use proc_macros::{printit, timeit};
 
+use crate::arguments::Args;
 use crate::parsing::parse_value;
-
-#[derive(Parser, Debug)]
-#[command(version, about)]
-struct Args {
-    /// Path to the extension
-    #[arg(short, long)]
-    extension: String,
-
-    /// Settings for the extension (json string)
-    #[arg(short, long)]
-    settings: Option<String>,
-}
 
 #[timeit]
 #[printit]
