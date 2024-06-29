@@ -2,6 +2,7 @@ use clap::Parser;
 use midoku_bindings::exports::{Chapter, Filter, Manga, Number, Page, Value};
 use midoku_bindings::Bindings;
 use miniserde::json::{self, Object};
+use proc_macros::{printit, timeit};
 
 #[derive(Parser, Debug)]
 #[command(version, about)]
@@ -53,12 +54,16 @@ fn parse_value(value: json::Value) -> Result<Value, Box<dyn std::error::Error>> 
     }
 }
 
+#[timeit]
+#[printit]
 fn initialize(bindings: &mut Bindings) -> Result<(), Box<dyn std::error::Error>> {
     bindings
         .initialize()
         .map_err(|_| "Failed to initialize".into())
 }
 
+#[timeit]
+#[printit]
 fn get_manga_list(
     bindings: &mut Bindings,
     filters: Vec<Filter>,
@@ -69,6 +74,8 @@ fn get_manga_list(
         .map_err(|_| "Failed to get manga list".into())
 }
 
+#[timeit]
+#[printit]
 fn get_manga_details(
     bindings: &mut Bindings,
     manga_id: String,
@@ -78,6 +85,8 @@ fn get_manga_details(
         .map_err(|_| "Failed to get manga details".into())
 }
 
+#[timeit]
+#[printit]
 fn get_chapter_list(
     bindings: &mut Bindings,
     manga_id: String,
@@ -87,6 +96,8 @@ fn get_chapter_list(
         .map_err(|_| "Failed to get chapter list".into())
 }
 
+#[timeit]
+#[printit]
 fn get_page_list(
     bindings: &mut Bindings,
     manga_id: String,

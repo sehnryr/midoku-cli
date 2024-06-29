@@ -1,9 +1,20 @@
-[package]
-name = "midoku-cli"
+[workspace]
+resolver = "2"
+members = ["proc-macros"]
+
+[workspace.package]
 version = "0.1.0"
 edition = "2021"
+publish = false
+
+[package]
+name = "midoku-cli"
+version.workspace = true
+edition.workspace = true
+publish.workspace = true
 
 [dependencies]
 clap = { version = "4.5.8", features = ["derive"] }
 midoku-bindings = { path = "../midoku-rs/midoku-bindings" }
 miniserde = "0.1.39"
+proc-macros = { path = "proc-macros" }
