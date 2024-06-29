@@ -12,7 +12,7 @@ use crate::parsing::parse_value;
 
 #[timeit]
 #[printit]
-fn initialize(bindings: &mut Bindings) -> Result<(), Box<dyn std::error::Error>> {
+fn initialize(bindings: &Bindings) -> Result<(), Box<dyn std::error::Error>> {
     bindings
         .initialize()
         .map_err(|_| "Failed to initialize".into())
@@ -21,7 +21,7 @@ fn initialize(bindings: &mut Bindings) -> Result<(), Box<dyn std::error::Error>>
 #[timeit]
 #[printit]
 fn get_manga_list(
-    bindings: &mut Bindings,
+    bindings: &Bindings,
     filters: Vec<Filter>,
     page: u32,
 ) -> Result<(Vec<Manga>, bool), Box<dyn std::error::Error>> {
@@ -33,7 +33,7 @@ fn get_manga_list(
 #[timeit]
 #[printit]
 fn get_manga_details(
-    bindings: &mut Bindings,
+    bindings: &Bindings,
     manga_id: String,
 ) -> Result<Manga, Box<dyn std::error::Error>> {
     bindings
@@ -44,7 +44,7 @@ fn get_manga_details(
 #[timeit]
 #[printit]
 fn get_chapter_list(
-    bindings: &mut Bindings,
+    bindings: &Bindings,
     manga_id: String,
 ) -> Result<Vec<Chapter>, Box<dyn std::error::Error>> {
     bindings
@@ -55,7 +55,7 @@ fn get_chapter_list(
 #[timeit]
 #[printit]
 fn get_page_list(
-    bindings: &mut Bindings,
+    bindings: &Bindings,
     manga_id: String,
     chapter_id: String,
 ) -> Result<Vec<Page>, Box<dyn std::error::Error>> {
@@ -78,14 +78,14 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
     }
 
-    initialize(&mut bindings)?;
+    initialize(&bindings)?;
 
-    let (_manga_list, _) = get_manga_list(&mut bindings, Vec::new(), 0)?;
+    let (_manga_list, _) = get_manga_list(&bindings, Vec::new(), 0)?;
     // let manga_id = _manga_list[0].id.clone();
     let manga_id = "74ad3ad0-41e2-4919-a3dd-e5061c3444da".to_string();
-    let _manga_details = get_manga_details(&mut bindings, manga_id.clone())?;
-    let chapters = get_chapter_list(&mut bindings, manga_id.clone())?;
-    let _pages = get_page_list(&mut bindings, manga_id.clone(), chapters[0].id.clone())?;
+    let _manga_details = get_manga_details(&bindings, manga_id.clone())?;
+    let chapters = get_chapter_list(&bindings, manga_id.clone())?;
+    let _pages = get_page_list(&bindings, manga_id.clone(), chapters[0].id.clone())?;
 
     Ok(())
 }
